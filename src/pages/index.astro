@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 ---
 
 <html lang="en">
@@ -8,13 +9,32 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} >
     <title>Astro</title>
+    <style>
+      nav {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--font-color);
+      }
+    </style>
   </head>
   <body>
-	<a href="/">Home</a>
-<a href="/about/">About</a>
-<a href="/blog/">Blog</a>
+  
+    
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/blog/">Blog</a>
+    </nav>
 
-<h1>Astro</h1>
-<h2>My Astro site!</h2>
+    <h1>Astro</h1>
+    <h2>My Astro site!</h2>
+
   </body>
 </html>

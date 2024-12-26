@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 const pageTitle = "About Me";
 
 const identity = {
@@ -12,23 +14,73 @@ const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
 const happy = true;
 const finished = false;
 const goal = 3;
+
+const skillColor = "blue";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
+
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
-    <title>{pageTitle}</title>
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+    <style define:vars={{skillColor, fontWeight, textCase}}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }   
+  .theme-switch {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+</style>
+
   </head>
   <body>
-    <body>
-        <a href="/">Home</a>
-<a href="/about/">About</a>
+    <div class="theme-switch">
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
+    </div>
+     <nav style="position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);">
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/blog/">Blog</a>
+    </nav>
 
-<h1>{pageTitle}</h1>
-<h2>... and my new Astro site!</h2>
+    <h1>Astro</h1>
+    <h2>My Astro site!</h2>
+
+    <script>
+      const themeToggle = document.getElementById('theme-toggle');
+      const currentTheme = localStorage.getItem('theme') || 'light';
+
+      if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.checked = true;
+      }
+
+      themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    </script>
      
          <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
       
@@ -43,13 +95,16 @@ const goal = 3;
         </ul>
         <p>My skills are:</p>
         <ul>
-          {skills.map((skill) => <li>{skill}</li>)}
+          {skills.map((skill) => <li class="skill">{skill}</li>)}
         </ul>
+      
         {happy && <p>I am happy to be learning Astro!</p>}
 
-{finished && <p>I finished this tutorial!</p>}
+        {finished && <p>I finished this tutorial!</p>}
 
-{goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
-      </body>
+        {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+      
+        
   </body>
-</html>
+  
+  </html>
