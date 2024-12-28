@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: My Third Blog Post
+title: MarkDown Cheat Sheet
 author: Astro Learner
 description: "A quick reference to the Markdown syntax.!"
 image:
