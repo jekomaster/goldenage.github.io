@@ -81,6 +81,19 @@ body {
   }
 
 }
+/* components on the same horizontal line */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1em; /* Adjust the gap as needed */
+  flex-grow: 1;
+}
 /* public/theme-toggle.css */
 
 .theme-switch {
