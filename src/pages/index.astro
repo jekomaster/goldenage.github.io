@@ -9,6 +9,7 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} >
     <title>Astro</title>
+    <link rel="stylesheet" href="/theme-toggle.css">
     <style>
       nav {
         position: absolute;
@@ -22,19 +23,27 @@ import '../styles/global.css';
         text-decoration: none;
         color: var(--font-color);
       }
-    </style>
-  </head>
-  <body>
-  
-    
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about/">About</a>
-      <a href="/blog/">Blog</a>
-    </nav>
+  </style>
+</head>
+<div class="theme-switch">
+  <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider round"></span>
+  </label>
+</div>
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/about/">About</a>
+  <a href="/blog/">Blog</a>
+</nav>
 
     <h1>Astro</h1>
     <h2>My Astro site!</h2>
+
+  
+    <script src="/theme-toggle.js" is:inline></script>
+  
 
   </body>
 </html>

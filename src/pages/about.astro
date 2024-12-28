@@ -1,25 +1,15 @@
 ---
 import '../styles/global.css';
 
-const pageTitle = "About Me";
-
-const identity = {
-  firstName: "Sal",
-  country: "Italy",
-  occupation: "full stack developer",
-  hobbies: ["photography", "guitar", "yoga"],
-};
-
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+const identity = { firstName: "John", country: "USA", occupation: "Developer", hobbies: ["reading", "coding"] };
+const skills = ["HTML", "CSS", "JavaScript"];
 const happy = true;
 const finished = false;
 const goal = 3;
-
 const skillColor = "blue";
 const fontWeight = "bold";
 const textCase = "uppercase";
 ---
-
 
 <html lang="en">
   <head>
@@ -28,23 +18,18 @@ const textCase = "uppercase";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
+    <link rel="stylesheet" href="/theme-toggle.css">
     <style define:vars={{skillColor, fontWeight, textCase}}>
-  h1 {
-    color: purple;
-    font-size: 4rem;
-  }
-  .skill {
-    color: var(--skillColor);
-    font-weight: var(--fontWeight);
-    text-transform: var(--textCase);
-  }   
-  .theme-switch {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
+      h1 {
+        color: purple;
+        font-size: 4rem;
       }
-</style>
-
+      .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+      }
+    </style>
   </head>
   <body>
     <div class="theme-switch">
@@ -53,7 +38,8 @@ const textCase = "uppercase";
         <span class="slider round"></span>
       </label>
     </div>
-     <nav style="position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);">
+    
+    <nav>
       <a href="/">Home</a>
       <a href="/about/">About</a>
       <a href="/blog/">Blog</a>
@@ -62,49 +48,30 @@ const textCase = "uppercase";
     <h1>Astro</h1>
     <h2>My Astro site!</h2>
 
-    <script>
-      const themeToggle = document.getElementById('theme-toggle');
-      const currentTheme = localStorage.getItem('theme') || 'light';
+    <script src="/theme-toggle.js" is:inline></script>
 
-      if (currentTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggle.checked = true;
-      }
-
-      themeToggle.addEventListener('change', () => {
-        if (themeToggle.checked) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-          localStorage.setItem('theme', 'dark');
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-          localStorage.setItem('theme', 'light');
-        }
-      });
-    </script>
+   
      
-         <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
+    <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
       
-        <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
-        <p>Here are a few facts about me:</p>
-        <ul>
-          <li>My name is {identity.firstName}.</li>
-          <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
-          {identity.hobbies.length >= 2 &&
-            <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-          }
-        </ul>
-        <p>My skills are:</p>
-        <ul>
-          {skills.map((skill) => <li class="skill">{skill}</li>)}
-        </ul>
-      
-        {happy && <p>I am happy to be learning Astro!</p>}
-
-        {finished && <p>I finished this tutorial!</p>}
-
-        {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
-      
-        
-  </body>
+    <p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
+    <p>Here are a few facts about me:</p>
+    <ul>
+      <li>My name is {identity.firstName}.</li>
+      <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+      {identity.hobbies.length >= 2 &&
+        <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+      }
+    </ul>
+    <p>My skills are:</p>
+    <ul>
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
   
-  </html>
+    {happy && <p>I am happy to be learning Astro!</p>}
+
+    {finished && <p>I finished this tutorial!</p>}
+
+    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+  </body>
+</html>
