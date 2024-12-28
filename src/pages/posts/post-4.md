@@ -1,6 +1,18 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: My Third Blog Post
+author: Astro Learner
+description: "A quick reference to the Markdown syntax.!"
+image:
+    url: "https://www.markdownguide.org/assets/images/tool-icons/markdown-here.png"
+    alt: "The Markdown logo on a dark background."
+pubDate: 2022-07-15
+tags: ["astro", "learning in public", "setbacks", "community"]
+---
+
+
 # Markdown Cheat Sheet
 
-A quick reference to the Markdown syntax.
 
 ## Overview
 
