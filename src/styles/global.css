@@ -5,8 +5,9 @@
 
 [data-theme="dark"] {
   --background-color: #1a1a1a;
-  --font-color: #ffffff;
+  --font-color: #000000;
 }
+
 
 html {
   background-color: var(--background-color);
@@ -145,4 +146,22 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(14px);
+}
+
+.content-wrapper {
+  max-width: 999px;
+  width: 100%; /* Allow full-width scaling */
+  margin: 0 auto;
+  padding: 1rem;
+  display: block;
+  box-sizing: border-box;
+  background-color: #f9f9f9; /* Light mode background */
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .content-wrapper {
+  background-color: #090311; /* Dark mode background */
+  color: #f9f9f9;           /* Optional: Light text for dark mode */
+  box-shadow: 0 2px 4px rgba(238, 233, 233, 0); /* Adjust shadow */
 }

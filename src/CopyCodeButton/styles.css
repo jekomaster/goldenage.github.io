@@ -1,0 +1,27 @@
+/* Container: Pre element */
+pre {
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;  /* Ensures that absolutely positioned elements inside are relative to this */
+}
+
+/* Button: Positioned outside pre */
+pre copy-code-button {
+  position: absolute;  /* Position relative to the parent container */
+  top: 0.5rem;         /* Adjust this value to position the button within the pre element */
+  right: 0.5rem;
+  z-index: 1;          /* Ensure the button is above any other content */
+}
+
+/* If you want to position the button outside the pre element (outside scrollable area) */
+.bash-container {
+  position: relative;  /* Parent container needs position relative */
+}
+
+.copy-code-button {
+  position: sticky;  /* Absolute to the parent container */
+  top: 0.5rem;         /* Adjust top value */
+  right: 0.5rem;       /* Adjust right value */
+  z-index: 1;          /* Ensure it stays on top */
+}
