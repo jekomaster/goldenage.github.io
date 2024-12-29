@@ -149,7 +149,7 @@ input:checked + .slider:before {
 }
 
 .content-wrapper {
-  max-width: 999px;
+  max-width: 1200px;
   width: 100%; /* Allow full-width scaling */
   margin: 0 auto;
   padding: 1rem;
@@ -164,4 +164,30 @@ input:checked + .slider:before {
   background-color: #090311; /* Dark mode background */
   color: #f9f9f9;           /* Optional: Light text for dark mode */
   box-shadow: 0 2px 4px rgba(238, 233, 233, 0); /* Adjust shadow */
+}
+.video-container {
+  position: relative;
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden; /* Ensure video doesn't overflow the container */
+}
+
+.video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the video */
+  width: 100%; /* Scale to fit width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure video covers the container */
+}
+.welcome-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Add some contrast */
+  font-size: 2rem;
 }
