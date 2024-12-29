@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const Greeting = ({ messages }) => {
-  const [index, setIndex] = useState(0);
+  const greetingRef = useRef(null);
+  const [index, setIndex] = React.useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    }, 1666);
+
+    return () => clearInterval(intervalId);
+  }, [messages.length]);
+
+  useEffect(() => {
+    if (greetingRef.current) {
+      gsap.fromTo(
+        greetingRef.current,
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8 }
+      );
+    }
+  }, [index]);
 
   return (
-    <div>
-      <p>{messages[index]}</p>
-      <button onClick={() => setIndex((index + 1) % messages.length)}>
-        Next Greeting
-      </button>
+    <div style={{ textAlign: 'center', fontSize: '2rem' }}>
+      <div ref={greetingRef}>{messages[index]}</div>
     </div>
   );
 };

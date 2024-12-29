@@ -22,6 +22,9 @@ const VideoPlayer = () => {
       data-setup='{}'
     >
       <source src="/media-content/Golden-Welcome.mp4" type="video/mp4" />
+      <source src="/media-content/golden-welcome.webm" type="video/webm" />
+      <source src="/media-content/golden-welcome.ogv" type="video/ogg" />
+  Your browser does not support the video tag.
     </video>
   );
 };

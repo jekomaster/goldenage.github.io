@@ -1,15 +1,16 @@
 ---
 import VideoPlayer from '../components/VideoPlayer';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting';
+import AppWrapper from '../components/AppWrapper.jsx'; // Import the wrapper
+import Greeting from '../components/Greeting.jsx';
 import VideoWithFilter from '../components/VideoWithFilter';
+import App from '../components/App.jsx';
+
 const pageTitle = "Home Page";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <!-- Render the React component -->
+  <!-- Render the VideoWithFilter component -->
   <VideoWithFilter client:visible />
-
-  <h2>My awesome blog subtitle</h2>
-  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]}></Greeting>
+  <App client:load />
 </BaseLayout>
