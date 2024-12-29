@@ -7,7 +7,7 @@ image:
     url: "https://www.markdownguide.org/assets/images/tool-icons/markdown-here.png"
     alt: "The Markdown logo on a dark background."
 pubDate: 2022-07-15
-tags: ["astro", "learning in public", "setbacks", "community"]
+tags: [".md", "markdown", "#", "documents"]
 ---
 
 
