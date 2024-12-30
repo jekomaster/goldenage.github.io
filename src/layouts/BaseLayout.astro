@@ -8,8 +8,6 @@ import Footer from '../components/Footer.astro';
 
 import ThemeToggle from '../components/ThemeToggle.astro';
 
-
-
 const { pageTitle } = Astro.props;
 
 ---
@@ -19,8 +17,7 @@ const { pageTitle } = Astro.props;
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content={Astro.generator} >
     <title>{pageTitle}</title>
   <style>:root {
@@ -35,10 +32,17 @@ const { pageTitle } = Astro.props;
     color: var(--title-color);
   }
   </style>
-  
-</head>
+   <script>
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  </script>
+  <body>
+    <div id="root"></div>
+  </body>
+  </head>
 <body>
   <ThemeToggle />
+
 <script>
   import "../scripts/theme-toggle.js";
 </script>

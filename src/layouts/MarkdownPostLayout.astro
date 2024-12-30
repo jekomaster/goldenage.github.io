@@ -1,4 +1,5 @@
 ---
+
 const { frontmatter } = Astro.props;
 import BaseLayout from './BaseLayout.astro';
 import '../CopyCodeButton/styles.css';
@@ -15,9 +16,9 @@ import '../CopyCodeButton/styles.css';
       <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
     ))}
   </div>
-
+  <pre data-noexecute>
       <slot />
-   
+      <pre>   
     <copy-code-button><script>
       import '../CopyCodeButton/create-copy-button.js';
       import '../CopyCodeButton/copy-code-button';

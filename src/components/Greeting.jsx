@@ -6,12 +6,17 @@ const Greeting = ({ messages }) => {
   const [index, setIndex] = React.useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    let animationFrame;
+    const loop = () => {
       setIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 1666);
-
-    return () => clearInterval(intervalId);
+      animationFrame = setTimeout(loop, 1666); // Recursive `setTimeout`
+    };
+    loop();
+  
+    return () => clearTimeout(animationFrame);
   }, [messages.length]);
+  
+
 
   useEffect(() => {
     if (greetingRef.current) {

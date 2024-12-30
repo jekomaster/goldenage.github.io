@@ -20,7 +20,7 @@ const VideoWithFilter = () => {
         <h1>Welcome to the Golden Age</h1>
       </div> */}
 
-      {/* Filter Buttons */}
+      {/* Filter Buttons 
       <div style={{ position: "absolute", bottom: "20px", left: "50%", transform: "translateX(-50%)" }}>
         <button onClick={() => setFilter("grayscale(100%)")}>Grayscale</button>
         <button onClick={() => setFilter("sepia(100%)")}>Sepia</button>
@@ -33,7 +33,7 @@ const VideoWithFilter = () => {
 
     
         <button onClick={() => setFilter("none")}>Reset</button>
-      </div>
+      </div> */}
     </div>
   );
 };

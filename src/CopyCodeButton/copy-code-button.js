@@ -60,9 +60,12 @@ export class CopyCodeButton extends LitElement {
       }
     }
     window.getSelection().removeAllRanges();
-    setTimeout(() => {
+    let timeoutId;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       this._isCopied = false;
-    }, 1000);
+    }, 500);
+    
   }
   render() {
     return html`
