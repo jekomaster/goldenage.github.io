@@ -1,21 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App'; // Ensure App is the root component
+import Greeting from './Greeting';
+import greetingsInLanguages from '../data/greetings';
 
-const AppWrapper = () => {
-  return (
-    <div>
-      <App />
-    </div>
-  );
-};
-
-// This will ensure the React app is hydrated in the client
-if (typeof window !== 'undefined') {
-  ReactDOM.hydrate(
-    <AppWrapper />,
-    document.getElementById('react-root')
-  );
-}
+const AppWrapper = () => (
+  <Greeting messages={greetingsInLanguages} />
+);
 
 export default AppWrapper;

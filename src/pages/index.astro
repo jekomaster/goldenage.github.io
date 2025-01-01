@@ -2,15 +2,23 @@
 import VideoPlayer from '../components/VideoPlayer';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AppWrapper from '../components/AppWrapper.jsx'; // Import the wrapper
-import Greeting from '../components/Greeting.jsx';
-import VideoWithFilter from '../components/VideoWithFilter';
+import VideoWithFilter from '../components/VideoWithFilter'
+import App from '../components/App';
+
+
 
 
 const pageTitle = "Home Page";
 ---
 
+
 <BaseLayout pageTitle={pageTitle}>
   <!-- Render the VideoWithFilter component -->
   <VideoWithFilter client:visible />
+
+      <App client:load />
+   
+  </html>
+ 
 
 </BaseLayout>
