@@ -1,13 +1,19 @@
 --- 
-const { images } = Astro.props; // Accept an array of image URLs as a prop
+// const { images } = Astro.props; // Accept an array of image URLs as a prop
 ---
+
+{/* 
 <div class="group">
   {images.map((image: { src: string; alt?: string }, index: number) => (
     <div class="item" data-key={index}>
       <img src={image.src} alt={image.alt || `Image ${index + 1}`} />
     </div>
   ))}
-</div>
+</div>     */}
+
+
+
+
 
 <style>
   .group {
@@ -18,19 +24,99 @@ const { images } = Astro.props; // Accept an array of image URLs as a prop
   }
 
   .item {
-    width: 400px; /* Set item dimensions */
-    height: 400px;
+    width: 280px; /* Set item dimensions */
+    height: 280px;
     background-color: #db1fc8;
     background-size: cover;
     background-position: center;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 12px; /* Add rounded corners */
   }
 
   .item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px; /* Match the container's rounded corners */
+    border-radius: 12px; /* Add rounded corners */
   }
+  .grid-container {
+  display: flex;
+
+  justify-content: center;
+  
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.grid-svg {
+  width: 100%;
+ 
+  max-width: 500px; /* Limit max width */
+  height: auto;
+}
+
 </style>
+
+
+
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="1057 900 300 350" 
+  width="100%" 
+  height="auto" 
+  preserveAspectRatio="xMidYMid meet" 
+  style="display: block; background-color: #ffffff00; border: 2px dashed #771fdb00;"
+>
+  <g>
+    <!-- Main Background -->
+    <rect x="1057" y="900" width="300" height="350" fill="#ffffff00" />
+    
+    <!-- Top Row -->
+    <g>
+      <rect x="1067" y="910" width="183.33" height="216.67" rx="12" ry="12" fill="rgba(219, 31, 200, 0.5)" />
+      <clipPath id="clip-top-left">
+        <rect x="1067" y="910" width="183.33" height="216.67" rx="12" ry="12" />
+      </clipPath>
+      <image x="1067" y="910" width="183.33" height="216.67" href="/PADI COW 2.jpg" clip-path="url(#clip-top-left)" preserveAspectRatio="xMidYMid slice" />
+    </g>
+
+    <g>
+      <rect x="1260.33" y="910" width="86.67" height="103.33" rx="12" ry="12" fill="rgba(219, 31, 200, 0.5)" />
+      <clipPath id="clip-top-right">
+        <rect x="1260.33" y="910" width="86.67" height="103.33" rx="12" ry="12" />
+      </clipPath>
+      <image x="1260.33" y="910" width="86.67" height="103.33" href="/PADI COW 3.jpg" clip-path="url(#clip-top-right)" preserveAspectRatio="xMidYMid slice" />
+    </g>
+    
+    <!-- Middle Row -->
+    <g>
+      <rect x="1260.33" y="1023.33" width="86.67" height="103.33" rx="12" ry="12" fill="rgba(219, 31, 200, 0.5)" />
+      <clipPath id="clip-middle">
+        <rect x="1260.33" y="1023.33" width="86.67" height="103.33" rx="12" ry="12" />
+      </clipPath>
+      <image x="1260.33" y="1023.33" width="86.67" height="103.33" href="/OM SUASTI ASTU COW.jpg" clip-path="url(#clip-middle)" preserveAspectRatio="xMidYMid slice" />
+    </g>
+    
+    <!-- Bottom Row -->
+    <g>
+      <rect x="1067" y="1136.67" width="86.67" height="103.33" rx="12" ry="12" fill="rgba(219, 31, 200, 0.5)" />
+      <clipPath id="clip-bottom-left">
+        <rect x="1067" y="1136.67" width="86.67" height="103.33" rx="12" ry="12" />
+      </clipPath>
+      <image x="1067" y="1136.67" width="86.67" height="103.33" href="/OM NAMO COW.jpg" clip-path="url(#clip-bottom-left)" preserveAspectRatio="xMidYMid slice" />
+    </g>
+
+    <g>
+      <rect x="1163.67" y="1136.67" width="183.33" height="103.33" rx="12" ry="12" fill="rgba(219, 31, 200, 0.5)" />
+      <clipPath id="clip-bottom-right">
+        <rect x="1163.67" y="1136.67" width="183.33" height="103.33" rx="12" ry="12" />
+      </clipPath>
+      <image x="1163.67" y="1136.67" width="183.33" height="103.33" href="/SELAMAT MALAM COW.jpg" clip-path="url(#clip-bottom-right)" preserveAspectRatio="xMidYMid slice" />
+    </g>
+  </g>
+</svg>
+
+

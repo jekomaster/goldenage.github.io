@@ -8,32 +8,31 @@ import "../styles/golden.css";
 import GoldenAge from '../components/GoldenAge.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 
-const images = [
-  { src: '/image1.jpeg', alt: 'Description for Image 1' },
-  { src: '/PADI COW 3.jpg', alt: 'Description for Image 2' },
-  { src: '/OM SUASTI ASTU COW.jpg', alt: 'Description for Image 3' },
-  { src: '/OM NAMO COW.jpg', alt: 'Description for Image 4' },
-  { src: '/SELAMAT MALAM COW.jpg', alt: 'Description for Image 5' },
-  { src: '/PADI COW 2.jpg', alt: 'Description for Image 6' },
+//const images = [
+//  { src: '/image1.jpeg', alt: 'Description for Image 1' },
+//  { src: '/PADI COW 3.jpg', alt: 'Description for Image 2' },
+//  { src: '/OM SUASTI ASTU COW.jpg', alt: 'Description for Image 3' },
+//  { src: '/OM NAMO COW.jpg', alt: 'Description for Image 4' },
+//  { src: '/SELAMAT MALAM COW.jpg', alt: 'Description for Image 5' },
+//  { src: '/PADI COW 2.jpg', alt: 'Description for Image 6' },
 
-];
+//];
 ---
 
 
 <BaseLayout>
 
     <GoldenAge />
-    <div style="margin-top: 30px; margin-bottom: 50px;">
+    <div style="margin-top: 50px; margin-bottom: 30px;">
       <App client:load />
     </div>
-    <ImageGallery images={images} />
+
+ {/*    <ImageGallery images={images} />     */}     <!-- const images -->  
+ 
+ <ImageGallery />
 
     
   
-
-  <!-- Render the VideoWithFilter component -->
-  <!-- <VideoWithFilter client:visible /> -->
-
  
 </BaseLayout>
 
