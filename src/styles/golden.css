@@ -1,0 +1,17 @@
+
+.golden-age-container {
+    display: absolute; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 30px 0; /* Optional: Add some space above and below */
+    height: px; /* Set a height to control vertical centering */
+    width: 100%;
+    max-width: 2000px;
+    margin: auto;
+    text-align: center;
+    margin-top: rem; /* Adjust as needed */
+    left: 10px; /* Shift right by 10px */
+    right: 10px; /* Shift left by 10px */
+}
+   
+  

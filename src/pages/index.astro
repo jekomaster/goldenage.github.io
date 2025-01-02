@@ -2,23 +2,42 @@
 import VideoPlayer from '../components/VideoPlayer';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AppWrapper from '../components/AppWrapper.jsx'; // Import the wrapper
-import VideoWithFilter from '../components/VideoWithFilter'
+import VideoWithFilter from '../components/VideoWithFilter';
 import App from '../components/App';
+import "../styles/golden.css";
+import GoldenAge from '../components/GoldenAge.astro';
+import ImageGallery from '../components/ImageGallery.astro';
 
+const images = [
+  { src: '/image1.jpeg', alt: 'Description for Image 1' },
+  { src: '/PADI COW 3.jpg', alt: 'Description for Image 2' },
+  { src: '/OM SUASTI ASTU COW.jpg', alt: 'Description for Image 3' },
+  { src: '/OM NAMO COW.jpg', alt: 'Description for Image 4' },
+  { src: '/SELAMAT MALAM COW.jpg', alt: 'Description for Image 5' },
+  { src: '/PADI COW 2.jpg', alt: 'Description for Image 6' },
 
-
-
-const pageTitle = "Home Page";
+];
 ---
 
 
-<BaseLayout pageTitle={pageTitle}>
-  <!-- Render the VideoWithFilter component -->
-  <VideoWithFilter client:visible />
+<BaseLayout>
 
+    <GoldenAge />
+    <div style="margin-top: 30px; margin-bottom: 50px;">
       <App client:load />
-   
-  </html>
- 
+    </div>
+    <ImageGallery images={images} />
 
+    
+  
+
+  <!-- Render the VideoWithFilter component -->
+  <!-- <VideoWithFilter client:visible /> -->
+
+ 
 </BaseLayout>
+
+
+
+
+

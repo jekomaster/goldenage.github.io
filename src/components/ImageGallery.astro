@@ -1,0 +1,36 @@
+--- 
+const { images } = Astro.props; // Accept an array of image URLs as a prop
+---
+<div class="group">
+  {images.map((image: { src: string; alt?: string }, index: number) => (
+    <div class="item" data-key={index}>
+      <img src={image.src} alt={image.alt || `Image ${index + 1}`} />
+    </div>
+  ))}
+</div>
+
+<style>
+  .group {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap onto new rows */
+    gap: 3rem; /* Space between items */
+    justify-content: center; /* Center content horizontally */
+  }
+
+  .item {
+    width: 400px; /* Set item dimensions */
+    height: 400px;
+    background-color: #db1fc8;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px; /* Match the container's rounded corners */
+  }
+</style>

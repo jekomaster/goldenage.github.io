@@ -8,6 +8,7 @@ import Footer from '../components/Footer.astro';
 
 import ThemeToggle from '../components/ThemeToggle.astro';
 
+
 const { pageTitle } = Astro.props;
 
 ---
@@ -42,14 +43,23 @@ const { pageTitle } = Astro.props;
   </head>
 <body>
   <ThemeToggle />
+  
 
 <script>
   import "../scripts/theme-toggle.js";
 </script>
+
 <Header />
+
+
+
+
 <h1 class="page-title">{pageTitle}</h1>
+
+
     <div class="content-wrapper">
       <slot />
+     
     </div>
     <Footer />
     <script>

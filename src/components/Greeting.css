@@ -21,7 +21,7 @@
     background: rgba(255, 255, 255, 0); /* Lower alpha value for more transparency */
     
     backdrop-filter: blur(0px);
-    color: #ffffff;
+    color: purple;
     padding: 60px 30px;
     border-radius: 60px; /* Rounded corners */
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0); /* Soft shadow */
