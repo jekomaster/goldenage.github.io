@@ -17,7 +17,7 @@
 
   position: relative;
   max-width: 80vw; /* Limit the grid width to fit nicely within the viewport */
-  max-height: 80vh; /* Limit the grid height to fit nicely within the viewport */
+  max-height: 100vh; /* Limit the grid height to fit nicely within the viewport */
 }
 
 .grid-item {

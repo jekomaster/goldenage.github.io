@@ -1,17 +1,13 @@
-
 import React, { useEffect, useState } from "react";
 import anime from "animejs";
 import "../styles/gridRipple.css";
-
-
-
-
 
 const GridRipple = () => {
   const [animation, setAnimation] = useState(null);
   const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
+    // Anime.js animation for the grid items
     const anim = anime({
       targets: ".grid-item",
       scale: [
@@ -30,9 +26,45 @@ const GridRipple = () => {
       }),
       loop: true,
     });
+
     setAnimation(anim);
     return () => anim.pause();
   }, []);
+
+  useEffect(() => {
+    const dynamicScale = () => {
+      const gridContainer = document.querySelector(".grid-container");
+      if (!gridContainer) return;
+  
+      const width = window.innerWidth; // Get viewport width
+      const height = window.innerHeight; // Get viewport height
+  
+      // Baseline dimensions
+      const baselineWidth = 1920;
+      const baselineHeight = 1080;
+  
+      // Calculate scale factor relative to baseline resolution
+      const scaleFactor = Math.min(width / baselineWidth, height / baselineHeight);
+  
+      // Apply scaling factor to the grid-container
+      gridContainer.style.transform = `scale(${scaleFactor})`;
+      gridContainer.style.transformOrigin = "center"; // Keep scaling centered
+    };
+  
+    // Initial scaling
+    dynamicScale();
+  
+    // Update scaling dynamically on window resize
+    window.addEventListener("resize", dynamicScale);
+  
+    return () => {
+      // Cleanup the event listener
+      window.removeEventListener("resize", dynamicScale);
+    };
+  }, []);
+  
+  
+  
 
   const handleGridClick = () => {
     if (isAnimating) {
@@ -45,7 +77,7 @@ const GridRipple = () => {
 
   const createGrid = () => {
     const items = [];
-    for (let i = 0; i < 400; i++) {
+    for (let i = 0; i < 414; i++) {
       items.push(<div key={i} className="grid-item"></div>);
     }
     return items;
@@ -57,30 +89,5 @@ const GridRipple = () => {
     </div>
   );
 };
-// Select the grid container
-const gridContainer = document.querySelector('.grid-container');
-
-// Function to calculate and apply the scale
-function dynamicScale() {
-  const width = window.innerWidth; // Get the viewport width
-  const height = window.innerHeight; // Get the viewport height
-
-  // Calculate the scale factor (adjust these thresholds as needed)
-  const scaleFactor = Math.min(width / 1920, height / 1080); // Scale based on a 1920x1080 baseline
-
-  // Apply the scale dynamically
-  gridContainer.style.transform = `scale(${scaleFactor})`;
-  gridContainer.style.transformOrigin = 'center'; // Keep scaling centered
-}
-
-// Initial scaling
-dynamicScale();
-
-// Update scaling dynamically on window resize
-window.addEventListener('resize', dynamicScale);
-
 
 export default GridRipple;
-
-
-
