@@ -37,34 +37,49 @@ import ImageGallery from '../components/ImageGallery.astro';
   z-index: -1; /* Ensure it is behind the other content */
   overflow: hidden;
 }
+.golden-age-background > svg {
+  width: 100%;
+  height: 100%; /* Make it fill the container */
+}
+
+
+
+
 
 
 
   </style>
-    <script>
-      // Function to dynamically set the height of the background
-      function setDynamicHeight() {
-        const background = document.querySelector('.golden-age-background');
-        
-        if (background) {
-          const windowWidth = window.innerWidth;
-          const minViewportWidth = 300; // Minimum width for calculation
-          const maxViewportWidth = window.screen.availWidth; // Maximum width (screen size)
-          const minVH = 15; // Minimum height in vh
-          const maxVH = 50; // Maximum height in vh
-  
-          const clampedWidth = Math.max(minViewportWidth, Math.min(windowWidth, maxViewportWidth));
-          const dynamicHeight = minVH + ((clampedWidth - minViewportWidth) / 
-                            (maxViewportWidth - minViewportWidth)) * (maxVH - minVH);
-          
-          (background as HTMLElement).style.height = `${dynamicHeight}vh`;
-        }
-      }
-  
-      // Call the function on window load and resize
-      window.addEventListener('load', setDynamicHeight);
-      window.addEventListener('resize', setDynamicHeight);
-    </script>
+<script>
+  // Function to dynamically set the height of the golden-age-background
+  function setDynamicHeight() {
+    const background = document.querySelector('.golden-age-background') as HTMLElement | null;
+
+    if (background) {
+      const windowWidth = window.innerWidth;
+      const minViewportWidth = 300; // Minimum width for calculation
+      const maxViewportWidth = window.screen.availWidth; // Maximum width (screen size)
+      const minVH = 15; // Minimum height in vh
+      const maxVH = 50; // Maximum height in vh
+
+      // Calculate clamped width and dynamic height
+      const clampedWidth = Math.max(minViewportWidth, Math.min(windowWidth, maxViewportWidth));
+      const dynamicHeight = minVH + ((clampedWidth - minViewportWidth) /
+                         (maxViewportWidth - minViewportWidth)) * (maxVH - minVH);
+
+      // Apply the calculated height to the container
+      background.style.height = `${dynamicHeight}vh`;
+
+      // Apply the calculated height to the container
+      background.style.height = `${dynamicHeight}vh`;
+    }
+  }
+
+  // Call the function on window load and resize
+  window.addEventListener('load', setDynamicHeight);
+  window.addEventListener('resize', setDynamicHeight);
+</script>
+
+
 
   <div class="golden-age-background">
     <GoldenAge />
@@ -72,7 +87,7 @@ import ImageGallery from '../components/ImageGallery.astro';
 
 
   
-  <div style="margin-top: 1vh; margin-bottom: 20vh;">
+
       <App client:load />
 
 
@@ -160,9 +175,8 @@ import ImageGallery from '../components/ImageGallery.astro';
       The Order of the Golden Age invites you to step away from the noise of modern life and embrace a journey of 
       self-realization. Together, let’s unveil the limitless potential within you and rediscover the joy of living in 
       harmony with nature.
-    </p>
   </p>
-</div>
+
 
 
   <div class="separator-with-emojis">
@@ -173,6 +187,12 @@ import ImageGallery from '../components/ImageGallery.astro';
 
 <p style="font-size: 5rem; line-height: 0.5; text-align: center;">🌍🌎🌏</p>
 <p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">✨💫🙏💛🙏💫✨</p>
+
+
+    
+  
+
+
  <ImageGallery />
 
     
