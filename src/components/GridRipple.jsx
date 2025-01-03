@@ -31,39 +31,8 @@ const GridRipple = () => {
     return () => anim.pause();
   }, []);
 
-  useEffect(() => {
-    const dynamicScale = () => {
-      const gridContainer = document.querySelector(".grid-container");
-      if (!gridContainer) return;
   
-      const width = window.innerWidth; // Get viewport width
-      const height = window.innerHeight; // Get viewport height
-  
-      // Baseline dimensions
-      const baselineWidth = 1920;
-      const baselineHeight = 1080;
-  
-      // Calculate scale factor relative to baseline resolution
-      const scaleFactor = Math.min(width / baselineWidth, height / baselineHeight);
-  
-      // Apply scaling factor to the grid-container
-      gridContainer.style.transform = `scale(${scaleFactor})`;
-      gridContainer.style.transformOrigin = "center"; // Keep scaling centered
-    };
-  
-    // Initial scaling
-    dynamicScale();
-  
-    // Update scaling dynamically on window resize
-    window.addEventListener("resize", dynamicScale);
-  
-    return () => {
-      // Cleanup the event listener
-      window.removeEventListener("resize", dynamicScale);
-    };
-  }, []);
-  
-  
+
   
 
   const handleGridClick = () => {

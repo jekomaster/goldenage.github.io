@@ -162,12 +162,7 @@ input:checked + .slider:before {
 
 
 
-[data-theme="dark"] .content-wrapper {
-  background-color: #09031100; 
-  color: #f9f9f900;          
-  box-shadow: 0 2px 4px rgba(238, 233, 233, 0); 
 
-}
 */
 .video-container {
   position: relative;
