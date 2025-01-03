@@ -19,18 +19,10 @@ const { pageTitle } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="favicon" rel="icon" href="/favicon-black.svg">
-
     <meta name="generator" content={Astro.generator} >
     <title>{pageTitle}</title>
-  <style>:root {
-    --title-color: #000000; /* Default to black for light mode */
-  }
-  
-  [data-theme="dark"] {
-    --title-color: #fff; /* Change to white for dark mode */
-  }
-  
+    <title>Fix Font Size</title>
+    <style>
   .page-title {
     color: var(--title-color);
   }

@@ -1,7 +1,7 @@
 :root {
-  --background-color: #f1f5f9;
+  --background-color: #fafdff;
   --font-color: #000000;
-  --icon-color-light: #610bc4; /* Define the light theme icon color */
+  --icon-color-light: #610bc49d; /* Define the light theme icon color */
   --icon-color-dark: #ffffff; /* Define the dark theme icon color */
 }
 
@@ -43,52 +43,89 @@ body {
 /* nav styles */
 
 .hamburger {
-  padding-right: 20px;
+  padding-right: 0px;
   cursor: pointer;
+  transform: scale(0.8); /* Scale down the hamburger */
 }
 
 .hamburger .line {
   display: block;
-  width: 40px;
-  height: 5px;
-  margin-bottom: 10px;
+  width: 32px; /* Adjust width to match the scale */
+  height: 4px; /* Adjust height to match the scale */
+  margin-bottom: 6px; /* Adjust margin to match the scale */
   background-color: purple;
 }
 
-.nav-links {
+/* General styles for nav */
+.nav {
+  display: flex; /* Ensures the nav items are in a row initially */
+  justify-content: center; /* Center the nav items horizontally */
+  align-items: center; /* Vertically centers items */
   width: 100%;
-  top: 5rem;
-  left: 48px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center; /* Center the nav links horizontally */
+  width: auto;
   background-color: #ff967600;
-  display: none;
   margin: 0;
+  padding: 0;
+  list-style-type: none;
+  gap: 0rem; /* Adds space between items */
+  flex-wrap: wrap; /* Allows wrapping of items when the screen size is too small */
 }
 
 .nav-links a {
   display: block;
   text-align: center;
-  padding: 10px 0;
+  padding: 10px 20px;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   text-transform: uppercase;
+  color: #7840d1; /* Set font color for light theme */
 }
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: purple;
+  background-color: rgba(128, 0, 128, 0.205);
 }
 
-.expanded {
-  display: unset;
+.theme-toggle-button {
+  display: inline-block;
+  padding: 10px;
+  background-color: #ff967600;
+  cursor: pointer;
 }
 
+/* Expand navigation when expanded class is added */
+.nav-links.expanded {
+  display: flex; /* Use flex to allow dynamic resizing */
+  flex-direction: column;
+}
+
+/* Media Queries for responsiveness */
+
+/* Smaller screens, adjust font size */
+@media screen and (max-width: 768px) {
+  .nav-links a {
+    font-size: 1.5rem; /* Reduce font size for smaller screens */
+  }
+}
+
+/* Very small screens, further reduce font size */
+@media screen and (max-width: 480px) {
+  .nav-links a {
+    font-size: 0.75rem; /* Further reduce font size for very small screens */
+  }
+}
+
+/* Medium screens - ensure nav is displayed inline */
 @media screen and (min-width: 636px) {
   .nav-links {
-    margin-left: 5em;
     display: block;
     position: static;
-    width: auto;
     background: none;
   }
 
@@ -96,6 +133,7 @@ body {
     display: inline-block;
     padding: 15px 20px;
   }
+
 
 }
 /* components on the same horizontal line */
@@ -108,7 +146,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 1em; /* Adjust the gap as needed */
+  gap: 0em; /* Adjust the gap as needed */
   flex-grow: 1;
 }
 /* public/theme-toggle.css */
