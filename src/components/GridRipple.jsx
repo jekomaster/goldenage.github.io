@@ -1,57 +1,86 @@
-import React, { useEffect, useState } from "react"; // Import React, useEffect, and useState hooks from the React library
-import anime from "animejs"; // Import the animejs library for animations
-import "../styles/gridRipple.css"; // Import the CSS file for styling the grid
+
+import React, { useEffect, useState } from "react";
+import anime from "animejs";
+import "../styles/gridRipple.css";
 
 
-const GridRipple = () => { // Define the GridRipple functional component
-  const [animation, setAnimation] = useState(null); // State to hold the animation instance
-  const [isAnimating, setIsAnimating] = useState(true); // State to track if the animation is running
 
-  useEffect(() => { // useEffect hook to run the animation setup when the component mounts
-    const anim = anime({ // Call the anime function to create an animation
-      targets: ".grid-item", // Target all elements with the class "grid-item"
-      scale: [ // Define the scale animation
-        { value: 0.1, easing: "easeOutSine", duration: 2000 }, // Scale down to 0.1 with easing and duration
-        { value: 1, easing: "easeInOutQuad", duration: 2000 }, // Scale back to 1 with easing and duration
+
+
+const GridRipple = () => {
+  const [animation, setAnimation] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(true);
+
+  useEffect(() => {
+    const anim = anime({
+      targets: ".grid-item",
+      scale: [
+        { value: 0.1, easing: "easeOutSine", duration: 1200 },
+        { value: 1, easing: "easeInOutQuad", duration: 1200 },
       ],
-      opacity: [ // Define the opacity animation
-        { value: 0.5, duration: 500 }, // Change opacity to 0.5 with duration
-        { value: 1, duration: 1200 }, // Change opacity back to 1 with duration
+      opacity: [
+        { value: 0.5, duration: 500 },
+        { value: 1, duration: 1200 },
       ],
       delay: anime.stagger(100, {
         grid: [20, 10],
         from: "center",
         start: 0,
-        direction: "both"
-      }), // Stagger the animation with a grid layout starting from the center and expanding diagonally
-      loop: true // Set the animation to loop indefinitely
+        direction: "both",
+      }),
+      loop: true,
     });
-    setAnimation(anim); // Save the animation instance to state
-    return () => anim.pause(); // Cleanup function to pause the animation when the component unmounts
-  }, []); // Empty dependency array to run the effect only once when the component mounts
+    setAnimation(anim);
+    return () => anim.pause();
+  }, []);
 
-  const handleGridClick = () => { // Function to handle grid click
+  const handleGridClick = () => {
     if (isAnimating) {
-      animation.pause(); // Pause the animation if it is running
+      animation.pause();
     } else {
-      animation.play(); // Play the animation if it is paused
+      animation.play();
     }
-    setIsAnimating(!isAnimating); // Toggle the animation state
+    setIsAnimating(!isAnimating);
   };
 
-  const createGrid = () => { // Function to create the grid items
-    const items = []; // Initialize an empty array to hold the grid items
-    for (let i = 20; i < 400; i++) { // Loop to create 100 grid items
-      items.push(<div key={i} className="grid-item"></div>); // Push a new div with the class "grid-item" into the array
+  const createGrid = () => {
+    const items = [];
+    for (let i = 0; i < 400; i++) {
+      items.push(<div key={i} className="grid-item"></div>);
     }
-    return items; // Return the array of grid items
+    return items;
   };
 
-  return ( // Return the JSX to render the component
-    <div className="grid-container" onClick={handleGridClick}> {/* Container div with the class "grid-container" and onClick handler */}
-      <div className="grid">{createGrid()}</div> {/* Div with the class "grid" containing the grid items created by createGrid */}
+  return (
+    <div className="grid-container" onClick={handleGridClick}>
+      <div className="grid">{createGrid()}</div>
     </div>
   );
 };
+// Select the grid container
+const gridContainer = document.querySelector('.grid-container');
 
-export default GridRipple; // Export the GridRipple component as the default export
+// Function to calculate and apply the scale
+function dynamicScale() {
+  const width = window.innerWidth; // Get the viewport width
+  const height = window.innerHeight; // Get the viewport height
+
+  // Calculate the scale factor (adjust these thresholds as needed)
+  const scaleFactor = Math.min(width / 1920, height / 1080); // Scale based on a 1920x1080 baseline
+
+  // Apply the scale dynamically
+  gridContainer.style.transform = `scale(${scaleFactor})`;
+  gridContainer.style.transformOrigin = 'center'; // Keep scaling centered
+}
+
+// Initial scaling
+dynamicScale();
+
+// Update scaling dynamically on window resize
+window.addEventListener('resize', dynamicScale);
+
+
+export default GridRipple;
+
+
+

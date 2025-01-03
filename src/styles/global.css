@@ -148,7 +148,7 @@ input:checked + .slider:before {
   transform: translateX(14px);
 }
 
-/* .content-wrapper {
+* .content-wrapper {
   max-width: 1200px;
   width: 100%; 
   margin: 0 auto;

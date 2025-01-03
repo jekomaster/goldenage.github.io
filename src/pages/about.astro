@@ -32,12 +32,18 @@ const textCase = "uppercase";
 
       <BaseLayout>
     
-  
       <h1>{pageTitle}</h1>
       <h2>My Astro site!</h2>
 
     
-      <GridRipple client:load />
+
+          <GridRipple client:load />
+        </div>
+      </div>
+   
+      
+    
+
 
     <p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
       
@@ -60,6 +66,6 @@ const textCase = "uppercase";
     {finished && <p>I finished this tutorial!</p>}
 
     {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
-  
+
 
     </BaseLayout>
