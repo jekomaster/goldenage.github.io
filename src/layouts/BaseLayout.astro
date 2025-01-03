@@ -19,6 +19,8 @@ const { pageTitle } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="favicon" rel="icon" href="/favicon-black.svg">
+
     <meta name="generator" content={Astro.generator} >
     <title>{pageTitle}</title>
   <style>:root {
@@ -37,6 +39,7 @@ const { pageTitle } = Astro.props;
     const theme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', theme);
   </script>
+  
   <body>
     <div id="root"></div>
     <ThemeToggle />
@@ -52,5 +55,6 @@ const { pageTitle } = Astro.props;
     <script>
       import "../scripts/menu.js";
     </script>
+  
   </body>
 </html>

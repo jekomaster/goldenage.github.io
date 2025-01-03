@@ -1,6 +1,8 @@
 :root {
   --background-color: #f1f5f9;
   --font-color: #000000;
+  --icon-color-light: #610bc4; /* Define the light theme icon color */
+  --icon-color-dark: #ffffff; /* Define the dark theme icon color */
 }
 
 [data-theme="dark"] {
@@ -8,6 +10,20 @@
   --font-color: #ffffff;
 }
 
+/* Applying the icon colors */
+.icon {
+  color: var(--icon-color-light); /* Default to light theme color */
+  transition: color 0.3s ease;
+  font-size: 1.5rem; /* Default font size */
+  margin: 0.5rem; /* Default margin */
+  padding: 0.5rem; /* Default padding */
+  display: inline-block; /* Default display */
+  vertical-align: middle; /* Align icons with text */
+}
+
+[data-theme="dark"] .icon {
+  color: var(--icon-color-dark); /* Change to dark theme color */
+}
 
 html {
   background-color: var(--background-color);
