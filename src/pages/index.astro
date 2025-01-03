@@ -8,108 +8,171 @@ import "../styles/golden.css";
 import GoldenAge from '../components/GoldenAge.astro';
 import ImageGallery from '../components/ImageGallery.astro';
 
-//const images = [
-//  { src: '/image1.jpeg', alt: 'Description for Image 1' },
-//  { src: '/PADI COW 3.jpg', alt: 'Description for Image 2' },
-//  { src: '/OM SUASTI ASTU COW.jpg', alt: 'Description for Image 3' },
-//  { src: '/OM NAMO COW.jpg', alt: 'Description for Image 4' },
-//  { src: '/SELAMAT MALAM COW.jpg', alt: 'Description for Image 5' },
-//  { src: '/PADI COW 2.jpg', alt: 'Description for Image 6' },
-
-//];
 ---
 
 
 <BaseLayout>
+  <style>
+    .separator-with-emojis {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+  
+    .separator-line {
+      flex: 1;
+      border-bottom: 3px solid #b69918;
+    }
+  
+    .emoji {
+      font-size: 20px;
+    }
+    .golden-age-background {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh; /* Default height for larger screens */
+  z-index: -1; /* Ensure it is behind the other content */
+  overflow: hidden;
+}
 
+
+
+  </style>
+    <script>
+      // Function to dynamically set the height of the background
+      function setDynamicHeight() {
+        const background = document.querySelector('.golden-age-background');
+        
+        if (background) {
+          const windowWidth = window.innerWidth;
+          const minViewportWidth = 300; // Minimum width for calculation
+          const maxViewportWidth = window.screen.availWidth; // Maximum width (screen size)
+          const minVH = 15; // Minimum height in vh
+          const maxVH = 50; // Maximum height in vh
+  
+          const clampedWidth = Math.max(minViewportWidth, Math.min(windowWidth, maxViewportWidth));
+          const dynamicHeight = minVH + ((clampedWidth - minViewportWidth) / 
+                            (maxViewportWidth - minViewportWidth)) * (maxVH - minVH);
+          
+          (background as HTMLElement).style.height = `${dynamicHeight}vh`;
+        }
+      }
+  
+      // Call the function on window load and resize
+      window.addEventListener('load', setDynamicHeight);
+      window.addEventListener('resize', setDynamicHeight);
+    </script>
+
+  <div class="golden-age-background">
     <GoldenAge />
-    <div style="margin-top: 30px; margin-bottom: 30px;">
+  </div>
+
+
+  
+  <div style="margin-top: 1vh; margin-bottom: 20vh;">
       <App client:load />
-    </div>
-
- {/*    <ImageGallery images={images} />     */}     <!-- const images -->  
- <br />
- <p style="font-size: 1.5rem; line-height: 1.5;">
-
-
-<ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 0px; list-style-type: disc; list-style-position: outside;">
-  <li>
-    The Order of the Golden Age is a global movement of specialists in lifestyle, nutrition, and holistic well-being. 
-    Our professional team comprises seasoned health mentors, chefs, and visionaries who have dedicated decades to 
-    transforming lives through the art of conscious living and nutrition. With roots in some of the world’s most 
-    inspiring locations—Bali, Lombok, Sumba, Indonesia; Tulum, Mexico; Santa Teresa, Playa Ciquita, Costa Rica; and Hawaii—we draw upon the synergy of 
-    nature and culture to foster profound personal growth.
-  </li>
-  <br></br>
-  <li>
-    Our mission is to reconnect individuals with the essence of Mother Nature and help them transcend the confines 
-    of ordinary life. We believe that food is the gateway to self-discovery and ultimate awareness. By embracing the 
-    right sources of nutrition, we empower the body and mind to manifest limitless possibilities.
-  </li>
-  <br></br>
-  <li>
-    At the Order of the Golden Age, we are not propagandists; we are pioneers. Our aim is to lift the veil of 
-    misinformation and reveal the truth about health, vitality, and happiness. Modern diets, tainted by chemicals 
-    and false promises, have left many disconnected from their natural state of bliss. Our mission is to detoxify 
-    both body and mind, rekindling the joy and clarity that come with vibrant health.
-  </li>
-</ul>
-<br></br>
 
 
 
-<h2 style="text-align: center;">What We Offer</h2>
-
-<p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">
-
-We curate immersive experiences in the most awe-inspiring natural environments around the globe. Our programs 
-include:<br /><br />
-
-<ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
-  <li><strong>Accommodation:</strong> Stay in breathtaking locations designed to rejuvenate the soul.</li>
-  <li><strong>Physical Training:</strong> Tailored activities to strengthen the body and invigorate the spirit.</li>
-  <li><strong>Detox Programs:</strong> Comprehensive cleansing to eliminate toxins and restore vitality.</li>
-  <li><strong>Culinary Workshops:</strong> Hands-on sessions with expert chefs to explore the art of health-conscious cooking.</li>
-  <li><strong>Nature Immersion:</strong> Guided excursions to tropical forests, waterfalls, and other natural wonders.</li>
-  <li><strong>Balinese Water Purification Temple Blessing Experience:</strong> Offers a serene and spiritual connection to nature.</li>
-</ul>
-<br /><br />
-<p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">Through these offerings, we guide participants on a transformative journey—one that harmonizes body, mind, and 
-  soul in perfect alignment with the rhythms of nature.</p>
-<br /><br />
-
-<h2>Our Philosophy</h2> 
-
-<p style="font-size: 1.5rem; line-height: 1.5;">
 
 
-  <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
+      <div class="separator-with-emojis">
+        <span class="emoji">✨</span>
+        <div class="separator-line"></div>
+        <span class="emoji">✨</span>
+      </div>
+   
+
+
+<div style="text-align: center;">
+  <h2 style="font-family: 'Central', serif; font-weight: bold; color: #b69918; font-size: 5rem;">Our Mission</h2>
+</div>
+
+<div style="margin-left: 10%; margin-right: 10%;">
+  <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 0px; list-style-type: disc; list-style-position: outside; margin-top: 0px; margin-bottom: 0px; padding: 0px">
     <li>
-      We are inspired by the rich legacy of the historical <a href="https://www.ordergoldenage.co.uk/oga/" target="_blank" style="font-family: 'Old English Text MT', serif; color: rgb(141, 123, 20);">Order of the Golden Age</a>, which sought to marry spirituality
-      with the principles of a wholesome, plant-based lifestyle. Today, we continue that vision, adapting it for a 
-      modern audience while staying true to its core ideals: compassion, awareness, and a commitment to a harmonious 
-      existence.
+      The Order of the Golden Age is a global movement of specialists in lifestyle, nutrition, and holistic well-being. 
+      Our professional team comprises seasoned health mentors, chefs, and visionaries who have dedicated decades to 
+      transforming lives through the art of conscious living and nutrition. With roots in some of the world’s most 
+      inspiring locations—Bali, Lombok, Sumba, Indonesia; Tulum, Mexico; Santa Teresa, Playa Ciquita, Costa Rica; and Hawaii—we draw upon the synergy of 
+      nature and culture to foster profound personal growth.
+    </li>
+    <br></br>
+    <li>
+      Our mission is to reconnect individuals with the essence of Mother Nature and help them transcend the confines 
+      of ordinary life. We believe that food is the gateway to self-discovery and ultimate awareness. By embracing the 
+      right sources of nutrition, we empower the body and mind to manifest limitless possibilities.
+    </li>
+    <br></br>
+    <li>
+      At the Order of the Golden Age, we are not propagandists; we are pioneers. Our aim is to lift the veil of 
+      misinformation and reveal the truth about health, vitality, and happiness. Modern diets, tainted by chemicals 
+      and false promises, have left many disconnected from their natural state of bliss. Our mission is to detoxify 
+      both body and mind, rekindling the joy and clarity that come with vibrant health.
     </li>
   </ul>
-  
-  <br />
-  
-  <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
-    <li>
-      In a world where health is often commodified, we stand as a beacon of integrity and authenticity. Our philosophy
-      is rooted in the belief that true well-being comes from simplicity, purity, and a deep connection with the 
-      natural world.
-    </li>
-  </ul>
-  
+  <br></br>
+
+  <p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">
+    We curate immersive experiences in the most awe-inspiring natural environments around the globe. Our programs 
+    include:<br /><br />
+
+    <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
+      <li><strong>Accommodation:</strong> Stay in breathtaking locations designed to rejuvenate the soul.</li>
+      <li><strong>Physical Training:</strong> Tailored activities to strengthen the body and invigorate the spirit.</li>
+      <li><strong>Detox Programs:</strong> Comprehensive cleansing to eliminate toxins and restore vitality.</li>
+      <li><strong>Culinary Workshops:</strong> Hands-on sessions with expert chefs to explore the art of health-conscious cooking.</li>
+      <li><strong>Nature Immersion:</strong> Guided excursions to tropical forests, waterfalls, and other natural wonders.</li>
+      <li><strong>Balinese Water Purification Temple Blessing Experience:</strong> Offers a serene and spiritual connection to nature.</li>
+    </ul>
+    <br /><br />
+    <p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">Through these offerings, we guide participants on a transformative journey—one that harmonizes body, mind, and 
+      soul in perfect alignment with the rhythms of nature.</p>
+    <br /><br />
+
+    <h2>Our Philosophy</h2> 
+
+    <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
+      <li>
+        We are inspired by the rich legacy of the historical <a href="https://www.ordergoldenage.co.uk/oga/" target="_blank" style="font-family: 'Old English Text MT', serif; color: rgb(141, 123, 20);">Order of the Golden Age</a>
+        , which sought to marry spirituality
+        with the principles of a wholesome, plant-based lifestyle. Today, we continue that vision, adapting it for a 
+        modern audience while staying true to its core ideals: compassion, awareness, and a commitment to a harmonious 
+        existence.
+      </li>
+    </ul>
+    
+    <br />
+    
+    <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 20px; list-style-type: disc; list-style-position: outside;">
+      <li>
+        In a world where health is often commodified, we stand as a beacon of integrity and authenticity. Our philosophy
+        is rooted in the belief that true well-being comes from simplicity, purity, and a deep connection with the 
+        natural world.
+      </li>
+    </ul>
+
+    <h2>Join Us</h2>
+    <p style="font-size: 1.5rem; line-height: 1.5;">
+      The Order of the Golden Age invites you to step away from the noise of modern life and embrace a journey of 
+      self-realization. Together, let’s unveil the limitless potential within you and rediscover the joy of living in 
+      harmony with nature.
+    </p>
+  </p>
+</div>
 
 
-<h2>Join Us</h2>
-<p style="font-size: 1.5rem; line-height: 1.5;">
-The Order of the Golden Age invites you to step away from the noise of modern life and embrace a journey of 
-self-realization. Together, let’s unveil the limitless potential within you and rediscover the joy of living in 
-harmony with nature.
-</p>
+  <div class="separator-with-emojis">
+    <span class="emoji">✨</span>
+    <div class="separator-line"></div>
+    <span class="emoji">✨</span>
+  </div>
+
+<p style="font-size: 5rem; line-height: 0.5; text-align: center;">🌍🌎🌏</p>
+<p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">✨💫🙏💛🙏💫✨</p>
  <ImageGallery />
 
     

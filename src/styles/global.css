@@ -115,14 +115,14 @@ body {
 }
 
 /* Very small screens, further reduce font size */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 800px) {
   .nav-links a {
     font-size: 0.75rem; /* Further reduce font size for very small screens */
   }
 }
 
 /* Medium screens - ensure nav is displayed inline */
-@media screen and (min-width: 636px) {
+@media screen and (min-width: 800px) {
   .nav-links {
     display: block;
     position: static;
@@ -177,7 +177,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #b16f99b4;
   transition: .4s;
   border-radius: 34px;
 }
@@ -189,7 +189,7 @@ body {
   width: 14px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
+  background-color: rgba(78, 29, 168, 0.774);
   transition: .4s;
   border-radius: 50%;
 }
