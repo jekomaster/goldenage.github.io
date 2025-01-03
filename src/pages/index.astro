@@ -7,7 +7,6 @@ import App from '../components/App';
 import "../styles/golden.css";
 import GoldenAge from '../components/GoldenAge.astro';
 import ImageGallery from '../components/ImageGallery.astro';
-
 ---
 
 
@@ -28,26 +27,6 @@ import ImageGallery from '../components/ImageGallery.astro';
     .emoji {
       font-size: 20px;
     }
-    .golden-age-background {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50vh; /* Default height for larger screens */
-  z-index: -1; /* Ensure it is behind the other content */
-  overflow: hidden;
-}
-.golden-age-background > svg {
-  width: 100%;
-  height: 100%; /* Make it fill the container */
-}
-
-
-
-
-
-
-
   </style>
 <script>
   // Function to dynamically set the height of the golden-age-background
@@ -84,27 +63,15 @@ import ImageGallery from '../components/ImageGallery.astro';
   <div class="golden-age-background">
     <GoldenAge />
   </div>
-
-
-  
-
       <App client:load />
-
-
-
-
-
       <div class="separator-with-emojis">
         <span class="emoji">✨</span>
         <div class="separator-line"></div>
         <span class="emoji">✨</span>
       </div>
-   
-
-
-<div style="text-align: center;">
-  <h2 style="font-family: 'Central', serif; font-weight: bold; color: #b69918; font-size: 5rem;">Our Mission</h2>
-</div>
+      <div style="text-align: center;">
+        <h2 style="font-family: 'Central', serif; font-weight: bold; color: #b69918; font-size: 5rem;">Our Mission</h2>
+      </div>
 
 <div style="margin-left: 10%; margin-right: 10%;">
   <ul style="font-size: 1.5rem; line-height: 1.5; margin: 0; padding-left: 0px; list-style-type: disc; list-style-position: outside; margin-top: 0px; margin-bottom: 0px; padding: 0px">
@@ -177,8 +144,6 @@ import ImageGallery from '../components/ImageGallery.astro';
       harmony with nature.
   </p>
 
-
-
   <div class="separator-with-emojis">
     <span class="emoji">✨</span>
     <div class="separator-line"></div>
@@ -188,16 +153,7 @@ import ImageGallery from '../components/ImageGallery.astro';
 <p style="font-size: 5rem; line-height: 0.5; text-align: center;">🌍🌎🌏</p>
 <p style="font-size: 1.5rem; line-height: 1.5; text-align: center;">✨💫🙏💛🙏💫✨</p>
 
-
-    
-  
-
-
  <ImageGallery />
-
-    
-  
- 
 </BaseLayout>
 
 
