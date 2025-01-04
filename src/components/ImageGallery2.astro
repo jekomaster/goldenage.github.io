@@ -1,3 +1,7 @@
+
+
+
+
 <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
     <img class="image" src="/Bali.jpg" draggable="false" />
     <img class="image" src="/Thailand.jpg" draggable="false" />
@@ -16,93 +20,167 @@
         background-color: black;
         overflow: hidden;
         display: flex;
-        justify-content: center; /* Horizontally center content */
-        align-items: center; /* Vertically center content */
+        justify-content: center;
+        align-items: center;
     }
 
     #image-track {
         display: flex;
         gap: 4vmin;
         position: relative;
-        transform: translateX(-50%); /* Move to center horizontally */
         transition: transform 0.2s ease;
+        width: 100%;
+        justify-content: center;
+        user-select: none;
+        will-change: transform; /* Hint to the browser that the element is likely to change */
     }
 
     .image {
-        width: 40vmin; /* Image width set to 40vmin */
-        height: 56vmin; /* Image height set to 56vmin */
+        width: 40vmin;
+        height: 56vmin;
         object-fit: cover;
         object-position: center;
         transition: object-position 0.2s ease;
-        pointer-events: none; /* Disable pointer events */
-        user-select: none; /* Prevent text selection */
-        -webkit-user-drag: none; /* Disable drag */
+        pointer-events: none;
+        -webkit-user-drag: none;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
     }
+
+    .image:first-child {
+        opacity: 1;
+    }
+
+    .image:last-child {
+        opacity: 0.8;
+    }
+    
+/* Full-screen image styling */
+.fullscreen-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1000;
+}
+
+/* Plus button styling */
+.plus-symbol {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 </style>
 
 <script>
-    const track = document.getElementById("image-track") as HTMLElement;
+   // Define the types for elements and other necessary variables
+const track = document.getElementById("image-track") as HTMLElement;
+const images = Array.from(track.getElementsByClassName("image")) as HTMLImageElement[];
 
-    let isMouseDown = false;
-    const imageFullWidth = 1200; // Full image width (1200px)
-    const frameWidth = window.innerWidth * 0.4; // Frame width (40% of viewport)
+let isMouseDown = false;
+const imageFullWidth = 1200; // Full image width (1200px)
+const frameWidth = window.innerWidth * 0.4; // Frame width (40% of viewport)
 
-    // Function to calculate the percentage based on mouse movement
-    const calculatePercentage = (delta: number, maxDelta: number, prevPercentage: number): number => {
-        const percentage = (delta / maxDelta) * 100;
-        return Math.min(Math.max(prevPercentage + percentage, -100), 100); // Clamping to -100 to 100
-    };
+// Define types for event handlers
+const calculatePercentage = (delta: number, maxDelta: number, prevPercentage: number): number => {
+    const percentage = (delta / maxDelta) * 100;
+    return Math.min(Math.max(prevPercentage + percentage, -39), 39); // Clamping to -100 to 100
+};
 
-    // Function to calculate object position, ensuring the image doesn't slide too far
-    const calculateObjectPosition = (percentage: number): number => {
-        const offset = (percentage / 100) * (imageFullWidth - frameWidth);
-        return Math.max(Math.min(50 + offset / frameWidth * 100, 100), 0); // Clamp between 0% and 100%
-    };
+// Function to calculate object position, ensuring the image doesn't slide too far
+const calculateObjectPosition = (percentage: number): number => {
+    const offset = (percentage / 100) * (imageFullWidth - frameWidth);
+    return Math.max(Math.min(50 + offset / frameWidth * 100, 100), 0); // Clamp between 0% and 100%
+};
 
-    // Mouse down event to start tracking
-    window.onmousedown = (e) => {
-        if (track) {
-            isMouseDown = true;
-            track.dataset.mouseDownAt = e.clientX.toString();
+// Handle mouse down event for tracking movement
+window.onmousedown = (e: MouseEvent): void => {
+    if (e.button === 0 || e.button === 1) { // Left click (0) or Middle click (1)
+        isMouseDown = true;
+        (track.dataset as any).mouseDownAt = e.clientX.toString(); // Typecast to allow access
+
+        // Disable pointer events during slider interaction
+        track.style.pointerEvents = 'none';
+        images.forEach((image) => image.style.pointerEvents = 'none');
+    }
+};
+
+// Handle mouse move event
+window.onmousemove = (e: MouseEvent): void => {
+    if (!track || !isMouseDown) return;
+
+    const mouseDelta = parseFloat((track.dataset as any).mouseDownAt || "0") - e.clientX;
+    const maxDelta = window.innerWidth / 2;
+    const prevPercentage = parseFloat((track.dataset as any).prevPercentage || "0");
+    const nextPercentage = calculatePercentage(mouseDelta, maxDelta, prevPercentage);
+
+    // Update the track position based on mouse movement
+    (track.dataset as any).percentage = nextPercentage.toString();
+    track.style.transform = `translateX(${nextPercentage}%)`;
+
+    // Update the object-position of images
+    images.forEach((image) => {
+        const objectPosition = calculateObjectPosition(nextPercentage);
+        image.style.objectPosition = `${objectPosition}% 50%`;
+    });
+};
+
+// Handle mouse up event to stop the tracking
+window.onmouseup = (): void => {
+    if (track) {
+        isMouseDown = false;
+        (track.dataset as any).mouseDownAt = "0"; // Reset the mouse down position
+        (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
+
+        // Re-enable pointer events after dragging is done
+        track.style.pointerEvents = 'auto';
+        images.forEach((image) => image.style.pointerEvents = 'auto');
+    }
+};
+
+// Handle mouse leave event for edge cases
+window.onmouseleave = (): void => {
+    if (track && isMouseDown) {
+        isMouseDown = false;
+        (track.dataset as any).mouseDownAt = "0";
+        (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
+
+        // Re-enable pointer events if mouse leaves the window
+        track.style.pointerEvents = 'auto';
+        images.forEach((image) => image.style.pointerEvents = 'auto');
+    }
+};
+
+// Define a type for selected image
+let selectedImage: HTMLImageElement | null = null;
+
+// Handle plus button click to enlarge the selected image
+const plusButton = document.getElementById("plus-button") as HTMLLIElement;
+
+if (plusButton) {
+    plusButton.addEventListener("click", (): void => {
+        if (selectedImage) {
+            selectedImage.classList.toggle("fullscreen-image"); // Toggle full-screen on selected image
+        } else {
+            alert("Please select an image first.");
         }
-    };
+    });
+}
 
-    // Mouse move event to move the track and images
-    window.onmousemove = (e) => {
-        if (!track || !isMouseDown) return;
+// Add click event listener to images to select them
+images.forEach((image) => {
+    image.addEventListener("click", (): void => {
+        selectedImage = image;
+        // Optionally, add a class to visually mark the selected image
+        images.forEach((img) => img.classList.remove("selected"));
+        image.classList.add("selected");
+    });
+});
 
-        const mouseDelta = parseFloat(track.dataset.mouseDownAt || "0") - e.clientX;
-        const maxDelta = window.innerWidth / 2;
-        const prevPercentage = parseFloat(track.dataset.prevPercentage || "0");
-        const nextPercentage = calculatePercentage(mouseDelta, maxDelta, prevPercentage);
-
-        // Update track position
-        track.dataset.percentage = nextPercentage.toString();
-        track.style.transform = `translateX(${nextPercentage}%)`;
-
-        // Update object-position for each image based on the sliding movement
-        const images = Array.from(track.getElementsByClassName("image")) as HTMLImageElement[];
-        for (const image of images) {
-            const objectPosition = calculateObjectPosition(nextPercentage);
-            image.style.objectPosition = `${objectPosition}% 50%`;
-        }
-    };
-
-    // Mouse up event to stop tracking
-    window.onmouseup = () => {
-        if (track) {
-            isMouseDown = false;
-            track.dataset.mouseDownAt = "0"; // Reset the mouse down position
-            track.dataset.prevPercentage = track.dataset.percentage || "0";
-        }
-    };
-
-    // Mouse leave event for edge cases
-    window.onmouseleave = () => {
-        if (track && isMouseDown) {
-            isMouseDown = false;
-            track.dataset.mouseDownAt = "0";
-            track.dataset.prevPercentage = track.dataset.percentage || "0";
-        }
-    };
 </script>

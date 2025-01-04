@@ -1,54 +1,115 @@
 ---
-
 const { frontmatter } = Astro.props;
 import BaseLayout from './BaseLayout.astro';
 import '../CopyCodeButton/styles.css';
 ---
 
-
 <BaseLayout pageTitle={frontmatter.title}>
+  <div class="text-container">
   <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
   <p><em>{frontmatter.description}</em></p>
   <p>Written by: {frontmatter.author}</p>
   <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+  
   <div class="tags">
     {frontmatter.tags.map((tag: string) => (
       <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
     ))}
   </div>
+  
   <pre data-noexecute>
-      <slot />
-      <pre>   
-    <copy-code-button><script>
-      import '../CopyCodeButton/create-copy-button.js';
-      import '../CopyCodeButton/copy-code-button';
-    </script></copy-code-button>
+    <slot />
+  </pre>
+  <copy-code-button></copy-code-button>
   </div>
   
-
 </BaseLayout>
 
-
-
 <style>
+  body {
+  margin: 20px; /* Adjust the value to your needs */
+  padding: 20px; /* Optional: for internal spacing */
+  box-sizing: border-box; /* Ensure padding doesn't affect width calculations */
+}
+  a {
+    color: #00539F;
+    text-decoration: none;
+  }
 
-    a {
-      color: #00539F;
-    }
-  
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-    }
-  
-    .tag {
-      margin: 0.25em;
-      border: dotted 1px #a1a1a1;
-      border-radius: .5em;
-      padding: .5em 1em;
-      font-size: 1.15em;
-      background-color: #F8FCFD;
-    }
-  </style>
-  
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
 
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: 1px dotted #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .tag:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+  }
+
+  .tag:focus {
+    outline: 2px solid #00539F;
+  }
+
+  img {
+    display: block;
+    margin: 1em auto;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .text-container {
+  max-width: 300ch; /* Approximately 16 words (depends on word length) */
+  word-wrap: break-word; /* Break words that are too long */
+  overflow-wrap: break-word; /* Additional support for word-breaking */
+  white-space: normal; /* Allow normal wrapping */
+}
+p {
+  font-size: 1.5em; /* 1.5 times the parent's font size */
+}
+
+pre[data-noexecute] {
+  /* Resizing */
+  width: 100%; /* Take up the full width of the container */
+  max-width: 80vw; /* Limit to 80% of the viewport width */
+  height: auto; /* Automatically adjust height */
+  max-height: 300vh; /* Limit to 300% of the viewport height */
+  resize: both; /* Allow user to resize in both directions */
+  overflow: auto; /* Add scrollbars for overflow */
+  
+  /* Text formatting */
+  white-space: pre-wrap; /* Preserve formatting but allow wrapping */
+  word-wrap: break-word; /* Break long words */
+  
+  /* Font and Text Style */
+  font-family: 'FiraCode Nerd Fonts', Courier, monospace; /* Monospace font for code */
+  font-size: 18px; /* Font size */
+  line-height: 1.5; /* Line height for readability */
+  letter-spacing: 0.5px; /* Slight spacing between characters */
+  text-align: left; /* Align text to the left */
+  color: #333; /* Text color */
+  font-weight: normal; /* Normal font weight */
+  
+  /* Container Styling */
+  padding: 10px; /* Internal padding */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #f4f4f4; /* Light background color */
+}
+
+
+
+</style>

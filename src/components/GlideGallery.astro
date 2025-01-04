@@ -1,0 +1,84 @@
+---
+import { useEffect } from 'react';
+---
+
+<head>
+  <!-- Add Glide.js CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.1/dist/css/glide.core.min.css"
+    rel="stylesheet"
+  />
+  <!-- Add Glide.js Script -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.1/dist/glide.min.js"
+    defer
+  ></script>
+</head>
+
+<div class="glide">
+  <div class="image-container">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      <li class="glide__slide"><img src="/Bali.jpg" alt="Bali" /></li>
+      <li class="glide__slide"><img src="/Thailand.jpg" alt="Thailand" /></li>
+      <li class="glide__slide"><img src="/Fiji.jpg" alt="Fiji" /></li>
+      <li class="glide__slide"><img src="/Sumba.jpg" alt="Sumba" /></li>
+      <li class="glide__slide"><img src="/Tulum.jpg" alt="Tulum" /></li>
+      <li class="glide__slide"><img src="/Hawaii.jpg" alt="Hawaii" /></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  if (typeof Glide !== 'undefined') {
+    document.addEventListener("DOMContentLoaded", function () {
+      new Glide('.glide', {
+        type: 'carousel', // Set to carousel for infinite scrolling
+        startAt: 0, // Start from the first image
+        perView: 1, // Display one image at a time
+        gap: '10px', // Space between images
+        keyboard: true, // Enable keyboard arrow navigation
+        dragThreshold: 150, // Set the threshold for dragging
+        breakpoints: {
+          768: {
+            perView: 1 // On smaller screens, show 1 image at a time
+          }
+        }
+      }).mount();
+    });
+  }
+</script>
+
+<style>
+  .glide {
+    width: 90vw; /* Set the gallery width */
+    height: 100vmin;
+    margin: 0 auto; /* Center the gallery horizontally */
+    overflow: hidden;
+  }
+
+  .glide__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .image-container {
+    width: 50%;
+    height: 50%;
+    overflow: hidden;
+    border: 0px solid #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%); /* Move to center horizontally */
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
