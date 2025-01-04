@@ -1,7 +1,3 @@
-
-
-
-
 <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
     <img class="image" src="/Bali.jpg" draggable="false" />
     <img class="image" src="/Thailand.jpg" draggable="false" />
@@ -10,6 +6,11 @@
     <img class="image" src="/Tulum.jpg" draggable="false" />
     <img class="image" src="/Hawaii.jpg" draggable="false" />
 </div>
+
+<!-- Centered Plus Button -->
+<ul class="plus-symbol" id="plus-button">
+    <li>+</li>
+</ul>
 
 <style>
     body {
@@ -32,7 +33,7 @@
         width: 100%;
         justify-content: center;
         user-select: none;
-        will-change: transform; /* Hint to the browser that the element is likely to change */
+        will-change: transform;
     }
 
     .image {
@@ -54,133 +55,213 @@
     .image:last-child {
         opacity: 0.8;
     }
-    
-/* Full-screen image styling */
-.fullscreen-image {
-    position: fixed;
+/* Fullscreen container */
+.fullscreen-container {
+    position: fixed;                /* Fixed positioning to ensure it stays on top */
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 1000;
+    width: 100vw;                   /* Full viewport width */
+    height: 100vh;                  /* Full viewport height */
+    display: flex;                  /* Use flex to center the content */
+    justify-content: center;        /* Center horizontally */
+    align-items: center;            /* Center vertically */
+    background-color: black;        /* Optional: add black background */
+    z-index: 1000;                  /* Ensure it's above other content */
+    transition: all 0.3s ease;      /* Smooth transition when toggling */
 }
 
-/* Plus button styling */
-.plus-symbol {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+
+.fullscreen-container.active {
+    opacity: 1;
+    pointer-events: all; /* Allow interactions when full-screen is active */
 }
+
+
+    /* Fullscreen image styling */
+.fullscreen-image {
+    position: flex;          /* Fix the image to the screen */
+    top: 0;
+    left: 0;
+    width: 100vw;             /* Make the image fill the viewport width */
+    height: 100vh;            /* Make the image fill the viewport height */
+    object-fit: cover;        /* Ensure the image fills the container without distortion */
+    object-position: center;  /* Center the image in the container */
+    z-index: 1000;            /* Bring the image to the front */
+    transition: all 0.3s ease;/* Smooth transition when toggling fullscreen */
+}
+
+.full-screen {
+        transform: scale(1.2); /* Slightly zoom in for effect */
+      }
+
+/* Optional: Styles to apply when the image is not in fullscreen */
+.image {
+    transition: transform 0.3s ease;
+}
+
+
+
+
+
+    /* Centered Plus button */
+    .plus-symbol {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the button */
+        background-color: rgba(255, 255, 255, 0);
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 3rem;
+        color: white;
+        z-index: 1000; /* Ensure it's on top */
+        list-style-type: none; /* Remove bullet points */
+    }
 </style>
 
+
 <script>
-   // Define the types for elements and other necessary variables
-const track = document.getElementById("image-track") as HTMLElement;
-const images = Array.from(track.getElementsByClassName("image")) as HTMLImageElement[];
-
-let isMouseDown = false;
-const imageFullWidth = 1200; // Full image width (1200px)
-const frameWidth = window.innerWidth * 0.4; // Frame width (40% of viewport)
-
-// Define types for event handlers
-const calculatePercentage = (delta: number, maxDelta: number, prevPercentage: number): number => {
-    const percentage = (delta / maxDelta) * 100;
-    return Math.min(Math.max(prevPercentage + percentage, -39), 39); // Clamping to -100 to 100
-};
-
-// Function to calculate object position, ensuring the image doesn't slide too far
-const calculateObjectPosition = (percentage: number): number => {
-    const offset = (percentage / 100) * (imageFullWidth - frameWidth);
-    return Math.max(Math.min(50 + offset / frameWidth * 100, 100), 0); // Clamp between 0% and 100%
-};
-
-// Handle mouse down event for tracking movement
-window.onmousedown = (e: MouseEvent): void => {
-    if (e.button === 0 || e.button === 1) { // Left click (0) or Middle click (1)
-        isMouseDown = true;
-        (track.dataset as any).mouseDownAt = e.clientX.toString(); // Typecast to allow access
-
-        // Disable pointer events during slider interaction
-        track.style.pointerEvents = 'none';
-        images.forEach((image) => image.style.pointerEvents = 'none');
-    }
-};
-
-// Handle mouse move event
-window.onmousemove = (e: MouseEvent): void => {
-    if (!track || !isMouseDown) return;
-
-    const mouseDelta = parseFloat((track.dataset as any).mouseDownAt || "0") - e.clientX;
-    const maxDelta = window.innerWidth / 2;
-    const prevPercentage = parseFloat((track.dataset as any).prevPercentage || "0");
-    const nextPercentage = calculatePercentage(mouseDelta, maxDelta, prevPercentage);
-
-    // Update the track position based on mouse movement
-    (track.dataset as any).percentage = nextPercentage.toString();
-    track.style.transform = `translateX(${nextPercentage}%)`;
-
-    // Update the object-position of images
+    const track = document.getElementById("image-track") as HTMLElement;
+    const images = Array.from(track.getElementsByClassName("image")) as HTMLImageElement[];
+ 
+    let isMouseDown = false;
+    const imageFullWidth = 1200; // Full image width (1200px)
+    const frameWidth = window.innerWidth * 0.4; // Frame width (40% of viewport)
+ 
+    let selectedImage: HTMLImageElement | null = null; // Variable to store selected image
+ 
+    const plusButton = document.getElementById("plus-button") as HTMLUListElement;
+ 
+    // Mouse hover effect: add/remove the 'selected' class to highlight images without acting as a selector
     images.forEach((image) => {
-        const objectPosition = calculateObjectPosition(nextPercentage);
-        image.style.objectPosition = `${objectPosition}% 50%`;
+        image.addEventListener("mouseenter", () => {
+            if (selectedImage !== null && selectedImage !== image) {
+                image.classList.add("highlight"); // Highlight the image only if it's not selected
+            }
+        });
+ 
+        image.addEventListener("mouseleave", () => {
+            image.classList.remove("highlight"); // Remove highlight on mouse leave
+        });
     });
-};
+ 
+    // Event listener for the + button to toggle full-screen image
+    if (plusButton) {
+        // Select an image when the + button hovers over it (check the selected image)
+        plusButton.addEventListener("mouseenter", (event: MouseEvent) => {
+            // If an image is under the cursor, select it (This will only happen if the image is not already selected)
+            images.forEach((image) => {
+                const rect = image.getBoundingClientRect();
+                if (mouseIsOverElement(event, rect)) {
+                    selectImage(image);
+                }
+            });
+        });
 
-// Handle mouse up event to stop the tracking
-window.onmouseup = (): void => {
-    if (track) {
-        isMouseDown = false;
-        (track.dataset as any).mouseDownAt = "0"; // Reset the mouse down position
-        (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
-
-        // Re-enable pointer events after dragging is done
-        track.style.pointerEvents = 'auto';
-        images.forEach((image) => image.style.pointerEvents = 'auto');
+        // Event listener for the + button to toggle full-screen on selected image
+        plusButton.addEventListener("click", (): void => {
+            if (selectedImage) {
+    // If the selected image already has the 'fullscreen-image' class, remove it to reset view
+    if (selectedImage.classList.contains("fullscreen-image")) {
+        selectedImage.classList.remove("fullscreen-image");
+        // Optionally, reset image size here if needed
+    } else {
+        // Otherwise, apply the fullscreen-image class
+        images.forEach((image) => image.classList.remove("fullscreen-image")); // Remove from all images
+        selectedImage.classList.add("fullscreen-image"); // Apply fullscreen to selected image
     }
-};
 
-// Handle mouse leave event for edge cases
-window.onmouseleave = (): void => {
-    if (track && isMouseDown) {
-        isMouseDown = false;
-        (track.dataset as any).mouseDownAt = "0";
-        (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
 
-        // Re-enable pointer events if mouse leaves the window
-        track.style.pointerEvents = 'auto';
-        images.forEach((image) => image.style.pointerEvents = 'auto');
+            } else {
+                alert("Please select an image first.");
+            }
+        });
     }
-};
+ 
+    // Helper function to detect mouse hover over an image element
+    function mouseIsOverElement(event: MouseEvent, rect: DOMRect): boolean {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+        return mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+    }
 
-// Define a type for selected image
-let selectedImage: HTMLImageElement | null = null;
-
-// Handle plus button click to enlarge the selected image
-const plusButton = document.getElementById("plus-button") as HTMLLIElement;
-
-if (plusButton) {
-    plusButton.addEventListener("click", (): void => {
-        if (selectedImage) {
-            selectedImage.classList.toggle("fullscreen-image"); // Toggle full-screen on selected image
-        } else {
-            alert("Please select an image first.");
-        }
-    });
-}
-
-// Add click event listener to images to select them
-images.forEach((image) => {
-    image.addEventListener("click", (): void => {
+    // Function to select an image
+    function selectImage(image: HTMLImageElement) {
         selectedImage = image;
-        // Optionally, add a class to visually mark the selected image
         images.forEach((img) => img.classList.remove("selected"));
-        image.classList.add("selected");
-    });
-});
+        image.classList.add("selected"); // Highlight the selected image
+    }
+ 
+    // Function to calculate the percentage based on mouse movement
+    const calculatePercentage = (delta: number, maxDelta: number, prevPercentage: number): number => {
+        const percentage = (delta / maxDelta) * 100;
+        return Math.min(Math.max(prevPercentage + percentage, -42), 42); // Clamping to -100 to 100
+    };
+ 
+    // Function to calculate object position, ensuring the image doesn't slide too far
+    const calculateObjectPosition = (percentage: number): number => {
+        const offset = (percentage / 100) * (imageFullWidth - frameWidth);
+        return Math.max(Math.min(50 + offset / frameWidth * -100, 100), 0); // Clamp between 0% and 100%
+    };
+ 
+    // Handle mouse down event for tracking movement
+    window.onmousedown = (e: MouseEvent): void => {
+        if (e.button === 0 || e.button === 1) { // Left click (0) or Middle click (1)
+            isMouseDown = true;
+            (track.dataset as any).mouseDownAt = e.clientX.toString(); // Typecast to allow access
 
+            // Disable pointer events during slider interaction
+            track.style.pointerEvents = 'none';
+            images.forEach((image) => image.style.pointerEvents = 'none');
+        }
+    };
+
+    // Handle mouse move event
+    window.onmousemove = (e: MouseEvent): void => {
+        if (!track || !isMouseDown) return;
+
+        // Explicitly define the event as a MouseEvent
+        const mouseEvent = e as MouseEvent;
+        const mouseDelta = parseFloat((track.dataset as any).mouseDownAt || "0") - mouseEvent.clientX;
+        const maxDelta = window.innerWidth / 2;
+        const prevPercentage = parseFloat((track.dataset as any).prevPercentage || "0");
+        const nextPercentage = calculatePercentage(mouseDelta, maxDelta, prevPercentage);
+
+        // Update the track position based on mouse movement
+        (track.dataset as any).percentage = nextPercentage.toString();
+        track.style.transform = `translateX(${nextPercentage}%)`;
+
+        // Update the object-position of images
+        images.forEach((image) => {
+            const objectPosition = calculateObjectPosition(nextPercentage);
+            image.style.objectPosition = `${objectPosition}% 50%`;
+        });
+    };
+
+    // Handle mouse up event to stop the tracking
+    window.onmouseup = (): void => {
+        if (track) {
+            isMouseDown = false;
+            (track.dataset as any).mouseDownAt = "0"; // Reset the mouse down position
+            (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
+
+            // Re-enable pointer events after dragging is done
+            track.style.pointerEvents = 'auto';
+            images.forEach((image) => image.style.pointerEvents = 'auto');
+        }
+    };
+
+    // Handle mouse leave event for edge cases
+    window.onmouseleave = (): void => {
+        if (track && isMouseDown) {
+            isMouseDown = false;
+            (track.dataset as any).mouseDownAt = "0";
+            (track.dataset as any).prevPercentage = (track.dataset as any).percentage || "0";
+
+            // Re-enable pointer events if mouse leaves the window
+            track.style.pointerEvents = 'auto';
+            images.forEach((image) => image.style.pointerEvents = 'auto');
+        }
+    };
 </script>

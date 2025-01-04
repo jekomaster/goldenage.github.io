@@ -7,70 +7,10 @@ import ImageGallery2 from "../components/ImageGallery2.astro";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Image Background</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        background-color: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
-      }
-
-      /* Container for the Image Gallery */
-      .gallery-container {
-        position: absolute;
-        z-index: 1; /* To layer it on top */
-        width: 100%; /* To ensure the gallery is full screen */
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s ease; /* Smooth transition for full-screen toggle */
-      }
-
-      /* Style for the + symbol */
-      .plus-symbol {
-        list-style-type: none;
-        font-size: 3rem;
-        color: white;
-        position: absolute;
-        z-index: 2; /* Ensure it's on top of the gallery */
-        cursor: pointer; /* Make it look like a button */
-        transition: transform 0.3s ease;
-      }
-
-      /* Style for full-screen mode */
-      .full-screen {
-        transform: scale(1.2); /* Slightly zoom in for effect */
-      }
-    </style>
   </head>
   <body>
     <div class="gallery-container" id="gallery-container">
       <ImageGallery2 />
     </div>
-
-    <!-- Add the "+" symbol inside a list item that will act as a button -->
-    <ul class="plus-symbol" id="plus-button">
-      <li>+</li>
-    </ul>
-
-    <script>
-const plusButton = document.getElementById('plus-button');
-const galleryContainer = document.getElementById('gallery-container');
-
-// Ensure the elements are found before adding event listeners
-if (plusButton && galleryContainer) {
-  // Toggle full-screen on clicking the "+" symbol
-  plusButton.addEventListener('click', () => {
-    galleryContainer.classList.toggle('full-screen'); // Toggle the full-screen style
-  });
-}
-
-    </script>
   </body>
 </html>
