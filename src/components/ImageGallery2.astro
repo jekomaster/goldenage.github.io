@@ -1,0 +1,108 @@
+<div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+    <img class="image" src="/Bali.jpg" draggable="false" />
+    <img class="image" src="/Thailand.jpg" draggable="false" />
+    <img class="image" src="/Fiji.jpg" draggable="false" />
+    <img class="image" src="/Sumba.jpg" draggable="false" />
+    <img class="image" src="/Tulum.jpg" draggable="false" />
+    <img class="image" src="/Hawaii.jpg" draggable="false" />
+</div>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        overflow: hidden;
+        display: flex;
+        justify-content: center; /* Horizontally center content */
+        align-items: center; /* Vertically center content */
+    }
+
+    #image-track {
+        display: flex;
+        gap: 4vmin;
+        position: relative;
+        transform: translateX(-50%); /* Move to center horizontally */
+        transition: transform 0.2s ease;
+    }
+
+    .image {
+        width: 40vmin; /* Image width set to 40vmin */
+        height: 56vmin; /* Image height set to 56vmin */
+        object-fit: cover;
+        object-position: center;
+        transition: object-position 0.2s ease;
+        pointer-events: none; /* Disable pointer events */
+        user-select: none; /* Prevent text selection */
+        -webkit-user-drag: none; /* Disable drag */
+    }
+</style>
+
+<script>
+    const track = document.getElementById("image-track") as HTMLElement;
+
+    let isMouseDown = false;
+    const imageFullWidth = 1200; // Full image width (1200px)
+    const frameWidth = window.innerWidth * 0.4; // Frame width (40% of viewport)
+
+    // Function to calculate the percentage based on mouse movement
+    const calculatePercentage = (delta: number, maxDelta: number, prevPercentage: number): number => {
+        const percentage = (delta / maxDelta) * 100;
+        return Math.min(Math.max(prevPercentage + percentage, -100), 100); // Clamping to -100 to 100
+    };
+
+    // Function to calculate object position, ensuring the image doesn't slide too far
+    const calculateObjectPosition = (percentage: number): number => {
+        const offset = (percentage / 100) * (imageFullWidth - frameWidth);
+        return Math.max(Math.min(50 + offset / frameWidth * 100, 100), 0); // Clamp between 0% and 100%
+    };
+
+    // Mouse down event to start tracking
+    window.onmousedown = (e) => {
+        if (track) {
+            isMouseDown = true;
+            track.dataset.mouseDownAt = e.clientX.toString();
+        }
+    };
+
+    // Mouse move event to move the track and images
+    window.onmousemove = (e) => {
+        if (!track || !isMouseDown) return;
+
+        const mouseDelta = parseFloat(track.dataset.mouseDownAt || "0") - e.clientX;
+        const maxDelta = window.innerWidth / 2;
+        const prevPercentage = parseFloat(track.dataset.prevPercentage || "0");
+        const nextPercentage = calculatePercentage(mouseDelta, maxDelta, prevPercentage);
+
+        // Update track position
+        track.dataset.percentage = nextPercentage.toString();
+        track.style.transform = `translateX(${nextPercentage}%)`;
+
+        // Update object-position for each image based on the sliding movement
+        const images = Array.from(track.getElementsByClassName("image")) as HTMLImageElement[];
+        for (const image of images) {
+            const objectPosition = calculateObjectPosition(nextPercentage);
+            image.style.objectPosition = `${objectPosition}% 50%`;
+        }
+    };
+
+    // Mouse up event to stop tracking
+    window.onmouseup = () => {
+        if (track) {
+            isMouseDown = false;
+            track.dataset.mouseDownAt = "0"; // Reset the mouse down position
+            track.dataset.prevPercentage = track.dataset.percentage || "0";
+        }
+    };
+
+    // Mouse leave event for edge cases
+    window.onmouseleave = () => {
+        if (track && isMouseDown) {
+            isMouseDown = false;
+            track.dataset.mouseDownAt = "0";
+            track.dataset.prevPercentage = track.dataset.percentage || "0";
+        }
+    };
+</script>

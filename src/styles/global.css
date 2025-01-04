@@ -33,7 +33,7 @@ html {
 
 body {
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -245,19 +245,41 @@ input:checked + .slider:before {
   font-size: 2rem;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 
-
+/* Footer styling */
 .footer {
   display: flex;
   justify-content: center; /* Center footer content horizontally */
   align-items: center; /* Center footer content vertically */
-  padding: 1rem; /* Optional: Add some padding */
-  background-color: #f8f9fa00; /* Optional: Background for visibility */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0); /* Optional for styling */
+  padding: 0.1rem; /* Adjust padding for spacing */
+  background-color: transparent; /* Adjust as needed */
+  box-shadow: none; /* Optional for styling */
   text-align: center;
+  width: 100%; /* Full width footer */
+  position: auto; /* Sticky positioning to ensure it stays at the bottom */
+  bottom: 0; /* Align to the bottom of the viewport when necessary */
+  z-index: 1000; /* Ensure it stays above other content */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.footer * {
+  pointer-events: auto; /* Allow interaction with footer content */
+}
+
+
+
+.footer {
+  height: 50px; /* Adjust based on desired size */
 }
 
 .content-wrapper {
   flex-grow: 1; /* Ensures content takes up available space */
+  padding-bottom: 50px; /* Prevent content from overlapping the footer */
 }
-
